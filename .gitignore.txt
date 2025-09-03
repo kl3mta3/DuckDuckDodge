@@ -1,0 +1,41 @@
+# Unity caches (never commit)
+[Ll]ibrary/
+[Tt]emp/
+[Oo]bj/
+[Bb]uild/
+[Bb]uilds/
+[Ll]ogs/
+[Mm]emoryCaptures/
+[Rr]ecordings/
+UserSettings/
+Library/PackageCache/
+
+# IDE junk
+.vs/
+.vscode/
+.idea/
+
+# OS junk
+.DS_Store
+Thumbs.db
+
+# Crash/Profiler
+*.pidb
+*.mdb
+*.pdb
+*.mmdb
+
+# Addressables / Burst artifacts
+*.bundle
+*.bin
+*.nmcache
+
+# Rider/JetBrains
+*.sln.DotSettings.user
+
+* text=auto
+*.cs text diff=csharp
+*.shader text
+*.meta text
+*.unity text
+*.prefab text

@@ -1,0 +1,8 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI%20Toolkit/TemplateStyleSheet.uss?fileID=7433441132597879392&amp;guid=f5894c9d97a5b334fb951afee4f0740a&amp;type=3#TemplateStyleSheet" />
+    <ui:VisualElement name="loadingScreen" class="canvas" style="background-image: url(&quot;project://database/Assets/Sprites/grass.png?fileID=7932798033344189819&amp;guid=c41332ac31956e5449645a9bebd0467c&amp;type=3#grass_0&quot;);">
+        <ui:Label text="Connected" name="titleLabel" class="label" />
+        <ui:Label text="waiting for other players" name="subtitleLabel" class="label sublabel" />
+        <ui:Button text="Quit match" display-tooltip-when-elided="true" name="quitButton" class="button" style="color: rgb(0, 0, 0); -unity-text-outline-color: rgb(255, 255, 255); background-color: rgb(255, 255, 255); text-shadow: 2px 2px 0 rgb(178, 178, 178);" />
+    </ui:VisualElement>
+</ui:UXML>
