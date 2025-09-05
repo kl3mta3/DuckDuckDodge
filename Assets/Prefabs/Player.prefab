@@ -313,13 +313,13 @@ CharacterController:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Height: 2.23
-  m_Radius: 1.01
+  m_Height: 2.08
+  m_Radius: 1
   m_SlopeLimit: 45
   m_StepOffset: 0.3
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
-  m_Center: {x: 0, y: 0.72, z: 0.12}
+  m_Center: {x: 0, y: 1.06, z: 0.06}
 --- !u!114 &3325037951503118538
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -359,7 +359,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
   baseSpeed: 3
+  ducklingSpeedBoost: 0.01
   moveAction: {fileID: -1680190386980627800, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+  muteAction: {fileID: 5659012538314632697, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   teamALayerName: TeamA
   teamBLayerName: TeamB
   teamRenderers:
@@ -374,8 +376,78 @@ MonoBehaviour:
   - {fileID: 2100000, guid: 8e159f055ba0bf34c86b14492796268b, type: 2}
   Team:
     m_InternalValue: 0
+  DisplayName:
+    m_InternalValue:
+      utf8LengthInBytes: 0
+      bytes:
+        offset0000:
+          byte0000: 0
+          byte0001: 0
+          byte0002: 0
+          byte0003: 0
+          byte0004: 0
+          byte0005: 0
+          byte0006: 0
+          byte0007: 0
+          byte0008: 0
+          byte0009: 0
+          byte0010: 0
+          byte0011: 0
+          byte0012: 0
+          byte0013: 0
+          byte0014: 0
+          byte0015: 0
+        offset0016:
+          byte0000: 0
+          byte0001: 0
+          byte0002: 0
+          byte0003: 0
+          byte0004: 0
+          byte0005: 0
+          byte0006: 0
+          byte0007: 0
+          byte0008: 0
+          byte0009: 0
+          byte0010: 0
+          byte0011: 0
+          byte0012: 0
+          byte0013: 0
+          byte0014: 0
+          byte0015: 0
+        offset0032:
+          byte0000: 0
+          byte0001: 0
+          byte0002: 0
+          byte0003: 0
+          byte0004: 0
+          byte0005: 0
+          byte0006: 0
+          byte0007: 0
+          byte0008: 0
+          byte0009: 0
+          byte0010: 0
+          byte0011: 0
+          byte0012: 0
+          byte0013: 0
+          byte0014: 0
+          byte0015: 0
+        byte0048: 0
+        byte0049: 0
+        byte0050: 0
+        byte0051: 0
+        byte0052: 0
+        byte0053: 0
+        byte0054: 0
+        byte0055: 0
+        byte0056: 0
+        byte0057: 0
+        byte0058: 0
+        byte0059: 0
+        byte0060: 0
+        byte0061: 0
   DucklingCount:
     m_InternalValue: 0
+  followerPool: {fileID: 0}
 --- !u!114 &-5491607022554602877
 MonoBehaviour:
   m_ObjectHideFlags: 0

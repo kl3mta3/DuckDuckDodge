@@ -11,7 +11,6 @@ public class DucklingCollectible : NetworkBehaviour
 
 	private Collider col;
 
-
 	private readonly NetworkVariable<bool> isAvailable =
 		new NetworkVariable<bool>(true, NetworkVariableReadPermission.Everyone,
 		NetworkVariableWritePermission.Server);
@@ -20,6 +19,7 @@ public class DucklingCollectible : NetworkBehaviour
 	{
 		col = GetComponent<Collider>();
 		col.isTrigger = true;
+		
 	}
 
 	public override void OnNetworkSpawn()
@@ -53,7 +53,16 @@ public class DucklingCollectible : NetworkBehaviour
 		owner.AppendFollower(follower);
 
 		isAvailable.Value = false;           
+		
+		var rpc = new ClientRpcParams
+		{
+			Send = new ClientRpcSendParams { TargetClientIds = new[] { owner.OwnerClientId } }
+		};
+		
+		AudioManager.Instance.PlayPickupSfxClientRpc(rpc);
+		
 		StartCoroutine(RespawnAfterDelay());
+		
 	}
 
 	private IEnumerator RespawnAfterDelay()
@@ -62,6 +71,10 @@ public class DucklingCollectible : NetworkBehaviour
 		if (this != null && IsServer)
 			isAvailable.Value = true;            
 	}
+
+
+
+
 
 	private void SetVisible(bool v)
 	{

@@ -1,0 +1,24 @@
+fileFormatVersion: 2
+guid: ce3dc9f2357849f42ae7dc234875800d
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - DucklingPickUpSFX: {fileID: 8300000, guid: 3548f584bf2c8554c9a6ec971f9c2c7d, type: 3}
+  - ScoringSFX: {fileID: 8300000, guid: 2e7df5aa9cba19d4a834c764d2212647, type: 3}
+  - StealingSFX: {fileID: 8300000, guid: 82f60458d1152f845917e19082817d73, type: 3}
+  - StolenFromSFX: {fileID: 8300000, guid: 82f60458d1152f845917e19082817d73, type: 3}
+  - GameEndedSFX: {instanceID: 0}
+  - GameStartedSFX: {instanceID: 0}
+  - GameStartingTimerSFX: {fileID: 8300000, guid: 371df6765f469064685b67aa524e80d1, type: 3}
+  - GameWonSFX: {fileID: 8300000, guid: a979a5f09840f744eadbc5264bf479fe, type: 3}
+  - GameLostSFX: {fileID: 8300000, guid: e28ee0c6672838c41ae90aa5aef1a941, type: 3}
+  - GameMenuMusic: {fileID: 8300000, guid: dad8ad6adb11f374ba4ad975816bec99, type: 3}
+  - GameBackgroundMusic: {fileID: 8300000, guid: dad8ad6adb11f374ba4ad975816bec99, type: 3}
+  - GameResultsMusic: {instanceID: 0}
+  - Instance: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

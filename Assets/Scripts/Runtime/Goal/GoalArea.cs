@@ -6,7 +6,7 @@ public class GoalArea : NetworkBehaviour
 {
 	[SerializeField] private TeamId team;
 	[SerializeField] private Collider spawnArea; 
-	
+	[SerializeField] private AudioClip scoreSfx;
 	public Collider SpawnArea => spawnArea;
 	
 	
@@ -23,8 +23,29 @@ public class GoalArea : NetworkBehaviour
 
 		int points = player.DucklingCount.Value;
 		if (points <= 0) return;
-
-		GameServer.Instance.AddScore(team, points); 
+		
+		//remove
+		string text = $"AddScore(GoalArea) clientId={player.DisplayName.Value}  points={points} team={team.ToString()}";
+			Debug.Log(text );
+		//remove
+		
+		GameServer.Instance.AddScore(team, points, player.OwnerClientId, player.DisplayName.Value); 
 		player.ClearChain(returnFollowersToPool: true); 
+		
+	
+		if (!player.IsSpawned) return;
+		
+		var rpc = new ClientRpcParams
+		{
+			Send = new ClientRpcSendParams { TargetClientIds = new[] { player.OwnerClientId } }
+		};
+		
+		AudioManager.Instance.PlayScoreSfxClientRpc(rpc);
+		
 	}
+	
+
+	
+	
+	
 }

@@ -5,5 +5,7 @@
         <ui:VisualElement name="TeamABackdrop" style="flex-grow: 1; width: 50%; height: 4%; position: absolute; top: 8%; background-color: rgb(213, 25, 97); border-left-color: rgb(0, 0, 0); border-left-width: 0; border-top-left-radius: 14px; border-top-right-radius: 14px; border-bottom-right-radius: 14px; border-bottom-left-radius: 14px;" />
         <ui:VisualElement name="TeamBBackdrop" enabled="true" style="flex-grow: 1; width: 25%; height: 4%; position: absolute; top: 8%; background-color: rgb(0, 178, 253); background-position-x: left 0; align-self: flex-start; left: 25%; max-width: 49.5%; border-left-width: -3px; border-top-left-radius: 14px; border-bottom-left-radius: 14px; min-width: 0.5%;" />
         <ui:VisualElement name="HalfwayMark" style="flex-grow: 1; background-color: rgb(255, 255, 255); position: absolute; top: 8%; left: 50%; height: 4%; width: 0.2%;" />
+        <ui:Label text="0000" name="teamAScoreLabel" style="color: rgb(255, 255, 255); font-size: 54px; top: 6.25%; width: 9%; align-self: flex-start; align-items: flex-start; -unity-text-align: upper-right; left: auto; position: absolute; right: 16%;" />
+        <ui:Label text="0000" name="teamBScoreLabel" style="color: rgb(255, 255, 255); font-size: 54px; top: 6.25%; width: 9%; align-self: flex-start; align-items: flex-start; -unity-text-align: upper-right; left: 15%; position: absolute; right: 0%;" />
     </ui:VisualElement>
 </ui:UXML>

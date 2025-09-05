@@ -1,7 +1,69 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/UI%20Toolkit/TemplateStyleSheet.uss?fileID=7433441132597879392&amp;guid=f5894c9d97a5b334fb951afee4f0740a&amp;type=3#TemplateStyleSheet" />
-    <ui:VisualElement name="matchRecap" class="canvas" style="align-items: center; justify-content: center;">
-        <ui:Label text="Result" display-tooltip-when-elided="true" name="resultLabel" class="label" style="margin-bottom: 60px;" />
-        <ui:Button text="Continue" display-tooltip-when-elided="true" name="continueButton" class="button" />
+    <ui:VisualElement name="matchRecap" class="canvas" style="align-items: center; justify-content: center; background-image: url(&quot;project://database/Assets/Sprites/grass.png?fileID=7932798033344189819&amp;guid=c41332ac31956e5449645a9bebd0467c&amp;type=3#grass_0&quot;);">
+        <ui:Label text="Team#  Wins!!!" display-tooltip-when-elided="true" name="winnerLabel" class="label" style="margin-bottom: 60px; top: 2%; position: absolute; font-size: 95px;" />
+        <ui:VisualElement name="scoreboardBackdrop" style="flex-grow: 1; position: absolute; width: 62%; height: 60%; background-color: rgb(23, 91, 133); border-top-left-radius: 41px; border-top-right-radius: 41px; border-bottom-right-radius: 41px; border-bottom-left-radius: 41px; bottom: 15%; top: 16%;">
+            <ui:VisualElement name="teamABackdrop" style="flex-grow: 1; width: 47%; height: 94%; background-color: rgb(255, 0, 103); position: absolute; top: 23px; left: 2%; border-top-left-radius: 29px; border-top-right-radius: 29px; border-bottom-right-radius: 29px; border-bottom-left-radius: 29px;">
+                <ui:VisualElement name="TeamScoreBackdrop" style="flex-grow: 1; width: 94%; height: 10%; color: rgb(255, 255, 255); background-color: rgba(0, 0, 0, 0.49); background-size: 92% 80%; border-top-left-radius: 38px; border-top-right-radius: 38px; border-bottom-right-radius: 38px; border-bottom-left-radius: 38px; position: absolute; top: 1%; left: 3%;" />
+                <ui:VisualElement name="TopDivider" style="flex-grow: 1; position: absolute; top: 12%; background-color: rgb(255, 255, 255); width: 100%; height: 1%; border-top-left-radius: 5px; border-top-right-radius: 5px; border-bottom-right-radius: 5px; border-bottom-left-radius: 5px; left: 0%;" />
+                <ui:VisualElement name="PlayerScores" style="flex-grow: 1; width: 94%; height: 85%; color: rgb(255, 255, 255); background-color: rgba(0, 0, 0, 0.49); background-size: 92% 80%; border-top-left-radius: 38px; border-top-right-radius: 38px; border-bottom-right-radius: 38px; border-bottom-left-radius: 38px; position: absolute; top: 14%; left: 3%;" />
+                <ui:VisualElement name="winningMarkA" style="flex-grow: 1; width: 32%; height: 24%; position: absolute; top: -11%; left: 67%; background-image: url(&quot;project://database/Assets/Sprites/checkmark.png?fileID=21300000&amp;guid=ee4906efcb72d354fba4507dd0bad42a&amp;type=3#checkmark&quot;); -unity-background-image-tint-color: rgb(1, 255, 6); opacity: 0;" />
+            </ui:VisualElement>
+            <ui:VisualElement name="teamBBackdrop" style="flex-grow: 1; width: 47%; height: 94%; background-color: rgb(0, 186, 255); position: absolute; top: 23px; left: 51%; border-top-left-radius: 29px; border-top-right-radius: 29px; border-bottom-right-radius: 29px; border-bottom-left-radius: 29px; align-self: flex-start;">
+                <ui:VisualElement name="TeamScoreBackdrop" style="flex-grow: 1; width: 94%; height: 10%; color: rgb(255, 255, 255); background-color: rgba(0, 0, 0, 0.49); background-size: 92% 80%; border-top-left-radius: 38px; border-top-right-radius: 38px; border-bottom-right-radius: 38px; border-bottom-left-radius: 38px; position: absolute; top: 1%; left: 3%;" />
+                <ui:VisualElement name="TopDivider" style="flex-grow: 1; position: absolute; top: 12%; background-color: rgb(255, 255, 255); width: 100%; height: 1%; border-top-left-radius: 5px; border-top-right-radius: 5px; border-bottom-right-radius: 5px; border-bottom-left-radius: 5px; left: 0%;" />
+                <ui:VisualElement name="PlayerScores" style="flex-grow: 1; width: 94%; height: 85%; color: rgb(255, 255, 255); background-color: rgba(0, 0, 0, 0.49); background-size: 92% 80%; border-top-left-radius: 38px; border-top-right-radius: 38px; border-bottom-right-radius: 38px; border-bottom-left-radius: 38px; position: absolute; top: 14%; left: 3%;" />
+                <ui:VisualElement name="winningMarkB" style="flex-grow: 1; width: 32%; height: 24%; position: absolute; top: -11%; left: 67%; background-image: url(&quot;project://database/Assets/Sprites/checkmark.png?fileID=21300000&amp;guid=ee4906efcb72d354fba4507dd0bad42a&amp;type=3#checkmark&quot;); -unity-background-image-tint-color: rgb(1, 255, 6); opacity: 0;" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+        <ui:VisualElement name="scoreboard" style="flex-grow: 1; position: absolute; width: 62%; height: 70%; background-color: rgba(23, 91, 133, 0); border-top-left-radius: 41px; border-top-right-radius: 41px; border-bottom-right-radius: 41px; border-bottom-left-radius: 41px; bottom: 15%;">
+            <ui:VisualElement name="TeamAScores" style="flex-grow: 1; width: 47%; height: 94%; background-color: rgba(255, 0, 103, 0); position: absolute; top: 23px; left: 2%; border-top-left-radius: 29px; border-top-right-radius: 29px; border-bottom-right-radius: 29px; border-bottom-left-radius: 29px;">
+                <ui:VisualElement name="TeamScore" style="flex-grow: 1; width: 94%; height: 10%; color: rgb(255, 255, 255); background-color: rgba(0, 0, 0, 0); background-size: 92% 80%; border-top-left-radius: 38px; border-top-right-radius: 38px; border-bottom-right-radius: 38px; border-bottom-left-radius: 38px; position: absolute; top: 1%; left: 3%;">
+                    <ui:Label text="0000" name="teamATotalLabel" style="top: 0%; color: rgb(255, 255, 255); -unity-font-style: bold; font-size: 56px; align-items: center; align-self: center; left: 0%; background-color: rgba(0, 0, 0, 0);" />
+                </ui:VisualElement>
+                <ui:VisualElement name="PlayerScores" style="flex-grow: 1; width: 94%; height: 85%; color: rgb(255, 255, 255); background-color: rgba(0, 0, 0, 0); background-size: 92% 80%; border-top-left-radius: 38px; border-top-right-radius: 38px; border-bottom-right-radius: 38px; border-bottom-left-radius: 38px; position: absolute; top: 14%; left: 3%;">
+                    <ui:VisualElement name="Player1" style="flex-grow: 1; position: absolute; width: 99%; height: 12%;">
+                        <ui:Label text="Player1" name="player1Name" style="font-size: 48px; width: 56%; height: 89%; left: 3%; top: 16%; position: absolute;" />
+                        <ui:Label text="0000" name="player1Score" style="font-size: 48px; width: 41%; height: 89%; left: 56%; top: 16%; position: absolute; align-self: flex-end; align-items: flex-end; -unity-text-align: upper-right;" />
+                    </ui:VisualElement>
+                    <ui:VisualElement name="Player3" style="flex-grow: 1; position: absolute; width: 99%; height: 12%; top: 14%;">
+                        <ui:Label text="Player3" name="player3Name" style="font-size: 48px; width: 56%; height: 89%; left: 3%; top: 16%; position: absolute;" />
+                        <ui:Label text="0000" name="player3Score" style="font-size: 48px; width: 41%; height: 89%; left: 56%; top: 16%; position: absolute; align-self: flex-end; align-items: flex-end; -unity-text-align: upper-right;" />
+                    </ui:VisualElement>
+                    <ui:VisualElement name="Player5" style="flex-grow: 1; position: absolute; width: 99%; height: 12%; left: 0%; top: 30%;">
+                        <ui:Label text="Player5" name="player5Name" style="font-size: 48px; width: 56%; height: 89%; left: 3%; top: 16%; position: absolute;" />
+                        <ui:Label text="0000" name="player5Score" style="font-size: 48px; width: 41%; height: 89%; left: 56%; top: 16%; position: absolute; align-self: flex-end; align-items: flex-end; -unity-text-align: upper-right;" />
+                    </ui:VisualElement>
+                    <ui:VisualElement name="Player7" style="flex-grow: 1; position: absolute; width: 99%; height: 12%; top: 45%;">
+                        <ui:Label text="Player7" name="player7Name" style="font-size: 48px; width: 56%; height: 89%; left: 3%; top: 16%; position: absolute;" />
+                        <ui:Label text="0000" name="player7Score" style="font-size: 48px; width: 41%; height: 89%; left: 56%; top: 16%; position: absolute; align-self: flex-end; align-items: flex-end; -unity-text-align: upper-right;" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+            </ui:VisualElement>
+            <ui:VisualElement name="TeamBScores" style="flex-grow: 1; width: 47%; height: 94%; background-color: rgba(0, 186, 255, 0); position: absolute; top: 23px; left: 51%; border-top-left-radius: 29px; border-top-right-radius: 29px; border-bottom-right-radius: 29px; border-bottom-left-radius: 29px; align-self: flex-start;">
+                <ui:VisualElement name="TeamScore" style="flex-grow: 1; width: 94%; height: 10%; color: rgb(255, 255, 255); background-color: rgba(0, 0, 0, 0); background-size: 92% 80%; border-top-left-radius: 38px; border-top-right-radius: 38px; border-bottom-right-radius: 38px; border-bottom-left-radius: 38px; position: absolute; top: 1%; left: 3%;">
+                    <ui:Label text="0000" name="teamBTotalLabel" style="top: 0%; color: rgb(255, 255, 255); -unity-font-style: bold; font-size: 56px; align-items: center; align-self: center; left: 0%;" />
+                </ui:VisualElement>
+                <ui:VisualElement name="PlayerScores" style="flex-grow: 1; width: 94%; height: 85%; color: rgb(255, 255, 255); background-color: rgba(0, 0, 0, 0); background-size: 92% 80%; border-top-left-radius: 38px; border-top-right-radius: 38px; border-bottom-right-radius: 38px; border-bottom-left-radius: 38px; position: absolute; top: 14%; left: 3%;">
+                    <ui:VisualElement name="Player2" style="flex-grow: 1; position: absolute; width: 99%; height: 12%;">
+                        <ui:Label text="Player2" name="player2Name" style="font-size: 48px; width: 56%; height: 89%; left: 3%; top: 16%; position: absolute;" />
+                        <ui:Label text="0000" name="player2Score" style="font-size: 48px; width: 41%; height: 89%; left: 56%; top: 16%; position: absolute; align-self: flex-end; align-items: flex-end; -unity-text-align: upper-right;" />
+                    </ui:VisualElement>
+                    <ui:VisualElement name="Player4" style="flex-grow: 1; position: absolute; width: 99%; height: 12%; top: 14%;">
+                        <ui:Label text="Player4" name="player4Name" style="font-size: 48px; width: 56%; height: 89%; left: 3%; top: 16%; position: absolute;" />
+                        <ui:Label text="0000" name="player4Score" style="font-size: 48px; width: 41%; height: 89%; left: 56%; top: 16%; position: absolute; align-self: flex-end; align-items: flex-end; -unity-text-align: upper-right;" />
+                    </ui:VisualElement>
+                    <ui:VisualElement name="Player6" style="flex-grow: 1; position: absolute; width: 99%; height: 12%; left: 0%; top: 30%;">
+                        <ui:Label text="Player6" name="player6Name" style="font-size: 48px; width: 56%; height: 89%; left: 3%; top: 16%; position: absolute;" />
+                        <ui:Label text="0000" name="player6Score" style="font-size: 48px; width: 41%; height: 89%; left: 56%; top: 16%; position: absolute; align-self: flex-end; align-items: flex-end; -unity-text-align: upper-right;" />
+                    </ui:VisualElement>
+                    <ui:VisualElement name="Player8" style="flex-grow: 1; position: absolute; width: 99%; height: 12%; top: 45%;">
+                        <ui:Label text="Player8" name="player8Name" style="font-size: 48px; width: 56%; height: 89%; left: 3%; top: 16%; position: absolute;" />
+                        <ui:Label text="0000" name="player8Score" style="font-size: 48px; width: 41%; height: 89%; left: 56%; top: 16%; position: absolute; align-self: flex-end; align-items: flex-end; -unity-text-align: upper-right;" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+            </ui:VisualElement>
+        </ui:VisualElement>
+        <ui:Button text="Play Again" display-tooltip-when-elided="true" name="playAgainButton" class="button" style="position: absolute; top: 88%; left: 79%; width: 17%; height: 7%; background-color: rgb(255, 255, 255); color: rgb(0, 0, 0); text-shadow: 2px 2px 0 rgb(180, 180, 180);" />
     </ui:VisualElement>
 </ui:UXML>

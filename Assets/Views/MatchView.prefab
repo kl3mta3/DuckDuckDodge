@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &6207650280907779480
+--- !u!1 &4220380245913075192
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,56 +8,46 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 1577418444204818405}
-  - component: {fileID: 6001752176970255273}
-  - component: {fileID: 1784251028722015990}
+  - component: {fileID: 39827772678567249}
+  - component: {fileID: 5115408010239178721}
   m_Layer: 5
-  m_Name: LoadingScreenView
+  m_Name: MatchView
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1577418444204818405
+  m_IsActive: 0
+--- !u!4 &39827772678567249
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6207650280907779480}
+  m_GameObject: {fileID: 4220380245913075192}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -7.03576, y: -9.79564, z: 19.355888}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6001752176970255273
+--- !u!114 &5115408010239178721
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6207650280907779480}
+  m_GameObject: {fileID: 4220380245913075192}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 19102, guid: 0000000000000000e000000000000000, type: 0}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_PanelSettings: {fileID: 11400000, guid: d232fc4eb38f5cb41b953695056c9759, type: 2}
+  m_PanelSettings: {fileID: 11400000, guid: 5157a48ef3c7b454b98befa1637e3107, type: 2}
   m_ParentUI: {fileID: 0}
-  sourceAsset: {fileID: 9197481963319205126, guid: 26f39a839ab72dc46a76f9bce0e6b24d, type: 3}
-  m_SortingOrder: 0
+  sourceAsset: {fileID: 9197481963319205126, guid: 858502808a6fb6f43b789452691e5766, type: 3}
+  m_SortingOrder: 1
   m_WorldSpaceSizeMode: 1
   m_WorldSpaceWidth: 1920
   m_WorldSpaceHeight: 1080
---- !u!1652712579 &1784251028722015990
-MultiplayerRolesData:
-  m_ObjectHideFlags: 2
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6207650280907779480}
-  m_GameObjectRolesMask: 3
-  m_ComponentsRolesMasks: []

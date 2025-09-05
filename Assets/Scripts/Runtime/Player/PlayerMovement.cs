@@ -2,13 +2,17 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Unity.Netcode;
+using Unity.Collections;
+using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(CharacterController), typeof(NetworkObject))]
 public class PlayerMovement : NetworkBehaviour
 {
 	[Header("Movement")]
 	[SerializeField] private float baseSpeed = 3f;
+	[SerializeField] private float ducklingSpeedBoost = .01f;
 	[SerializeField] private InputActionReference moveAction;
+	[SerializeField] private InputActionReference muteAction;
 	[SerializeField] private string teamALayerName = "TeamA";
 	[SerializeField] private string teamBLayerName = "TeamB";
 	
@@ -17,12 +21,16 @@ public class PlayerMovement : NetworkBehaviour
 	[SerializeField] private Material[] teamMaterials;             
 	
 	[Header("Team")]
-	public NetworkVariable<TeamId> Team = new NetworkVariable<TeamId>(
-		TeamId.TeamA, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Server);
+	public NetworkVariable<TeamId> Team = new NetworkVariable<TeamId>(TeamId.TeamA, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Server);
+	
+	public NetworkVariable<FixedString64Bytes> DisplayName =
+		new(default, NetworkVariableReadPermission.Everyone, NetworkVariableWritePermission.Server);
+		
 	private GameObject playerGoal;
 	private string teamAGoalTag = "TeamAGoal";
 	private string teamBGoalTag = "TeamBGoal";
-
+	
+	
 	[SerializeField] public NetworkVariable<int> DucklingCount = new NetworkVariable<int>(0);
 	[SerializeField] private FollowerPool followerPool;
 	
@@ -35,16 +43,44 @@ public class PlayerMovement : NetworkBehaviour
 	private readonly List<DucklingFollower> _chain = new();
 	private Vector2 _serverMove;
 
-	void Awake() => _cc = GetComponent<CharacterController>();
+	void Awake()
+	{
+		_cc = GetComponent<CharacterController>();
+		var a = muteAction.action;
+		a.performed += OnToggleMusicClick;  
+		a.Enable();
+	}
+
+	public void OnToggleMusicClick(InputAction.CallbackContext ctx)
+	{
+		if (!ctx.performed) return;
+		var bg = BackgroundMusicPlayer.Instance;
+		if (bg != null) bg.ToggleMusic();
+	}
+	
+	
+	
+	
+
 
 	public override void OnNetworkSpawn()
 	{
 		if (IsOwner && moveAction) moveAction.action.Enable();
 
 		Team.OnValueChanged += OnTeamChanged;
-
+		
 		if (IsServer)
-			Team.Value = TeamAllocator.GetNextTeam();
+		{
+			var clientId = this.OwnerClientId;
+			Team.Value = TeamAllocator.GetNextTeam(clientId);
+		
+			if ( DisplayName.Value.IsEmpty)
+			{
+				DisplayName.Value = $"Player {OwnerClientId}";
+				GameServer.Instance.SetPlayerName(OwnerClientId, DisplayName.Value);
+			}
+		}
+		
 			
 		ApplyTeamMaterial(Team.Value);
 		ApplyTeamLayer(Team.Value);
@@ -86,7 +122,19 @@ public class PlayerMovement : NetworkBehaviour
 			else moveAction.action.Disable();
 		}
 	}
+	
+	[ServerRpc(RequireOwnership = true)]
+	public void RequestSetNameServerRpc(FixedString64Bytes requested)
+	{
+		var s = requested.ToString().Trim();
+		if (string.IsNullOrEmpty(s)) return;
+		if (s.Length > 20) s = s.Substring(0, 20);
 
+		FixedString64Bytes clean = s;
+		DisplayName.Value = clean;
+		GameServer.Instance.SetPlayerName(OwnerClientId, clean);
+	}
+	
 	private void SpawnAtGoalArea()
 	{
 		if (!playerGoal) return;
@@ -111,14 +159,14 @@ public class PlayerMovement : NetworkBehaviour
 	private void ServerTeleport(Vector3 pos, Quaternion rot)
 	{
 		if (!IsServer) return;
-		// Temporarily disable to avoid CharacterController collisions on teleport
+	
 		bool wasEnabled = _cc.enabled;
 		_cc.enabled = false;
 		transform.SetPositionAndRotation(pos, rot);
 		_cc.enabled = wasEnabled;
 	}
 
-	// Pick a random clear point inside a (box) collider's bounds, avoiding overlaps
+	
 	private bool TryPickPointInArea(Collider area, out Vector3 point)
 	{
 		var b = area.bounds;
@@ -142,13 +190,13 @@ public class PlayerMovement : NetworkBehaviour
 
 	private bool IsClearForController(Vector3 pos)
 	{
-		// approximate the controller volume as a capsule for overlap test
+		
 		float r = _cc.radius * 0.95f;
 		float h = Mathf.Max(_cc.height, r * 2f);
 		Vector3 centerWS = pos + _cc.center;
 		Vector3 bottom = centerWS + Vector3.up * r;
 		Vector3 top    = centerWS + Vector3.up * (h - r);
-		// Ignore triggers; collide vs everything else
+		
 		return !Physics.CheckCapsule(bottom, top, r, ~0, QueryTriggerInteraction.Ignore);
 	}
 
@@ -189,7 +237,7 @@ public class PlayerMovement : NetworkBehaviour
 			for (int i = 0; i < mats.Length; i++)
 				mats[i] = targetMat;
 
-			r.sharedMaterials = mats; // apply back
+			r.sharedMaterials = mats; 
 		}
 	}
 
@@ -227,6 +275,7 @@ public class PlayerMovement : NetworkBehaviour
 			}
 		}
 
+
 		if (IsServer) Simulate(_serverMove, Time.deltaTime);
 	}
 
@@ -235,7 +284,7 @@ public class PlayerMovement : NetworkBehaviour
 		Vector3 dir = new(input.x, 0f, input.y);
 		if (dir.sqrMagnitude > 1f) dir.Normalize();
 
-		_cc.SimpleMove(dir * baseSpeed);
+		_cc.SimpleMove(dir * baseSpeed*(1f + (float)DucklingCount.Value* 0.01f));
 
 		if (dir.sqrMagnitude > 0.0001f)
 		{
@@ -296,6 +345,15 @@ public class PlayerMovement : NetworkBehaviour
 	{
 		_chain.RemoveRange(startIndex, _chain.Count - startIndex);
 		DucklingCount.Value = _chain.Count;
+		
+		var owner = this;
+		if (owner == null || !owner.IsSpawned) return;
+		
+		var rpc = new ClientRpcParams
+		{
+			Send = new ClientRpcSendParams { TargetClientIds = new[] { owner.OwnerClientId } }
+		};
+		AudioManager.Instance.PlayStolenFromSfxClientRpc();
 	}
 	
 	public void AddSegment(List<DucklingFollower> seg)
@@ -307,5 +365,14 @@ public class PlayerMovement : NetworkBehaviour
 			_chain.Add(f);
 		}
 		DucklingCount.Value = _chain.Count;
+		
+		var owner = this;
+		if (owner == null || !owner.IsSpawned) return;
+		
+		var rpc = new ClientRpcParams
+		{
+			Send = new ClientRpcSendParams { TargetClientIds = new[] { owner.OwnerClientId } }
+		};
+		AudioManager.Instance.PlayStealingClientRpc();
 	}
 }

@@ -74,9 +74,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
-  followDistance: 0.3
-  moveSpeed: 5
+  followDistance: 0.2
+  moveSpeed: 25
   rotateSpeed: 20
+  collapseRate: 20
+  expandRate: 6
+  stopSpeedEps: 8
   teamRenderers:
   - {fileID: 173675430226262869}
   - {fileID: 4546779454368857551}

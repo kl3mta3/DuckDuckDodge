@@ -9,6 +9,10 @@ public class DucklingFollower : NetworkBehaviour
 	[SerializeField] private float followDistance = 0.8f;
 	[SerializeField] private float moveSpeed = 6f;
 	[SerializeField] private float rotateSpeed = 12f;
+	
+	[SerializeField] private float collapseRate = 3f;        // units/sec toward 0
+	[SerializeField] private float expandRate   = 6f;        // units/sec back to followDistance
+	[SerializeField] private float stopSpeedEps = 0.05f;  
 
 	[Header("Visuals")]
 	[SerializeField] private List<Renderer> teamRenderers = new();
@@ -23,7 +27,9 @@ public class DucklingFollower : NetworkBehaviour
 
 	private Transform _target;   
 	private Vector3 _desiredPos; 
-
+	private Vector3   _lastTargetPos;
+	private float     _currentDist;     
+	
 	private void Reset()
 	{
 		gameObject.SetActive(true);
@@ -79,30 +85,36 @@ public class DucklingFollower : NetworkBehaviour
 	public void SetFollowTarget(Transform t) => _target = t;
 
 
-	private void Update()
+ private void Update()
 	{
 		if (_target == null) return;
 
-		// Desired spot sits a little behind the target on XZ
-		Vector3 behind = _target.position - _target.forward * followDistance;
+		// --- measure target speed ---
+		Vector3 tp = _target.position;
+		float targetSpeed = (tp - _lastTargetPos).magnitude / Mathf.Max(Time.deltaTime, 0.0001f);
+		_lastTargetPos = tp;
 
-		// Initialize desired pos on first frame to avoid big jump
-		if (_desiredPos == Vector3.zero)
-			_desiredPos = transform.position;
+		// --- adjust spacing based on target motion ---
+		if (targetSpeed <= stopSpeedEps)
+			_currentDist = Mathf.MoveTowards(_currentDist, 0f, collapseRate * Time.deltaTime);
+		else
+			_currentDist = Mathf.MoveTowards(_currentDist, followDistance, expandRate * Time.deltaTime);
 
+		// --- compute desired position (behind target by dynamic distance) ---
+		Vector3 behind = tp - _target.forward * _currentDist;
+
+		if (_desiredPos == Vector3.zero) _desiredPos = transform.position;
 		_desiredPos = Vector3.Lerp(_desiredPos, behind, 12f * Time.deltaTime);
 
-		// Move toward desired
+		// --- move & face travel ---
 		Vector3 to = _desiredPos - transform.position;
 		transform.position = Vector3.MoveTowards(transform.position, _desiredPos, moveSpeed * Time.deltaTime);
 
-		// Face travel
 		if (to.sqrMagnitude > 0.0001f)
 		{
 			Quaternion face = Quaternion.LookRotation(new Vector3(to.x, 0f, to.z));
 			transform.rotation = Quaternion.Slerp(transform.rotation, face, rotateSpeed * Time.deltaTime);
 		}
-		
 	}
 	
 

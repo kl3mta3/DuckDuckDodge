@@ -144,8 +144,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
-  followerPrefab: {fileID: 1980973856815001371, guid: 58350314d77e967498089cf2b62bc91d, type: 3}
-  playerTag: Player
+  pool: {fileID: 0}
+  body: {fileID: 3036269589181360670}
+  respawnDelay: 30
+  pickupSfx: {fileID: 8300000, guid: 3548f584bf2c8554c9a6ec971f9c2c7d, type: 3}
 --- !u!114 &5199143572860966209
 MonoBehaviour:
   m_ObjectHideFlags: 0
